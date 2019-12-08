@@ -1,5 +1,5 @@
 {
-    "name": "pagerange/hyde",
+    "name": "pagerange/md2sql",
     "description": "Create database table using yaml frontmatter from collection of markdown documents.",
      "keywords": ["pagerange", "parsedown", "sql", "database", "parsedown-extra", "markdown", "markdown-extra", "meta", "yaml"],
     "type": "library",
