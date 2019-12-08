@@ -1,0 +1,100 @@
+#!/usr/bin/env php
+<?php
+
+if(!empty($argv[3])) {
+    $BASE_PATH = $argv[3];
+} else {
+    $BASE_PATH = realpath(__DIR__);
+}
+
+require  $BASE_PATH . '/vendor/autoload.php';
+
+
+if(!empty($argv[1])) {
+    $dotenv = Dotenv\Dotenv::createImmutable($argv[1]);
+} else {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+}
+
+$dotenv->load();
+
+if(empty($_ENV['HYDE_DOCPATH'])) {
+    printf('Could not find HYDE_DOCPATH in .env');
+    die;
+}
+if(empty($_ENV['HYDE_DOCTABLE'])) {
+    $_ENV['HYDE_DOCTABLE'] = 'hyde_docs';
+}
+
+use Pagerange\Hyde;
+
+class RunHyde
+{
+
+    protected static $hyde;
+
+    public static function run()
+    {
+        $mp = new Pagerange\Markdown\MetaParsedown;
+        $dbh = self::getDbh();
+        self::$hyde = new Hyde($mp, $dbh);
+    }
+
+    protected static function getDbh()
+    {
+        $db_type = $_ENV['DB_CONNECTION'];
+        $db_name = $_ENV['DB_DATABASE'];
+        $db_user = $_ENV['DB_USERNAME'] ?? '';
+        $db_pass = $_ENV['DB_PASSWORD'] ?? '';
+        $db_post = $_ENV['DB_PORT'] ?? '';
+        $db_host = $_ENV['DB_HOST'] ?? '';
+        if($db_type == 'sqlite') {
+            $db_dsn = "sqlite:$db_name";
+        } else {
+            $db_dsn = "$db_type:host=$db_host;dbname=$db_name;port=$db_port";
+        }
+
+        $dbh = new \PDO($db_dsn, $db_user, $db_pass);
+        $dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        printf("Database Connection Created!\n");
+        printf("$db_type\n");
+        printf("$db_name\n");
+        return $dbh;
+    }
+
+    public static function runTests()
+    {
+        $tests = [];
+        $tests['hyde_class'] = (self::$hyde instanceof Hyde) ? 'Hyde::class' : 'error';
+        $tests['doc_path'] = self::$hyde->getDocpath();
+        $tests['doc_table'] = self::$hyde->getDoctable();
+        $tests['dbh_class'] =  (self::$hyde->getDbh() instanceof \PDO) ? 'PDO::class' : 'error';
+        $tests['doc_count'] = count(self::$hyde->getDocFiles());
+        $table = self::$hyde->getDoctable();
+        $query = "SELECT * FROM {$table}";
+        $stmt = self::$hyde->getDbh()->query($query);
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $count = count(self::$hyde->getDocfiles());
+        $tests['row_count'] = $count;
+
+        return $tests;
+
+    }
+
+}
+
+    
+try{
+    RunHyde::run();
+    printf("Index generated!\n");
+    printf("Done!\n");
+    if(!empty($argv[2]) && $argv[2] == 'runtests') {
+        $tests = RunHyde::runTests();
+        foreach($tests as $out) {
+            printf("$out\n");
+        }
+    }
+} catch(Exception $e) {
+    printf($e->getMessage());
+}
+

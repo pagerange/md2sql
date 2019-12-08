@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<phpunit bootstrap="vendor/autoload.php">
+	<testsuites>
+		<testsuite name="hyde">
+			<file>tests/HydeTest.php</file>
+            <file>tests/HydeAutorunTest.php</file>
+            <file>tests/HydeBinaryTest.php</file>
+		</testsuite>
+	</testsuites>
+</phpunit>

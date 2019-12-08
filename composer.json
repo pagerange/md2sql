@@ -1,0 +1,28 @@
+{
+    "name": "pagerange/hyde",
+    "description": "Create database table using yaml frontmatter from collection of markdown documents.",
+     "keywords": ["pagerange", "parsedown", "sql", "database", "parsedown-extra", "markdown", "markdown-extra", "meta", "yaml"],
+    "type": "library",
+    "require": {
+        "erusev/parsedown": "^1.7",
+        "erusev/parsedown-extra": "^0.7.1",
+        "vlucas/phpdotenv": "^4.0",
+        "pagerange/metaparsedown": "^1.0.7"
+    },
+    "bin": ["bin/hyde"],
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pagerange\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve George",
+            "email": "steve@pagerange.com"
+        }
+    ]
+}
