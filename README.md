@@ -28,7 +28,6 @@ Note: currently, *md2sql* is not published on packagist, so if you want to insta
 "repositories": [
     {
         "type": "vcs",
-        "name": "pagerange/md2sql",
         "url": "https://github.com/pagerange/md2sql"
     }
 ],
@@ -40,7 +39,7 @@ After you've added the `repositories` block to `composer.json`, just require the
 composer require pagerange/md2sql:dev-master
 ```
 
-After the package installs, you can optioally the `hyde` binary (php shell script) to your project root (`vendors` should be in same folder as `hyde` binary):
+After the package installs, you can optionally copy the `hyde` binary (php shell script) to your project root (`vendors` should be in same folder as `hyde` binary):
 
 ```bash
 cp vendor/pagerange/md2sql/bin/hyde .
