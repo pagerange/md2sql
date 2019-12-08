@@ -22,7 +22,25 @@ Install with composer:
 composer require pagerange/md2sql
 ```
 
-Copy the `hyde` binary (php shell script) to your project root (`vendors` should be in same folder as `hyde` binary):
+Note: currently, *md2sql* is not published on packagist, so if you want to install with composer, you'll need to add this repository to your `composer.json` file, and require the `dev-master` version of *md2sql*.
+
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "name": "pagerange/md2sql",
+        "url": "https://github.com/pagerange/md2sql"
+    }
+],
+```
+
+After you've added the `repositories` block to `composer.json`, just require the package:
+
+```bash
+composer require pagerange/md2sql:dev-master
+```
+
+After the package installs, you can optioally the `hyde` binary (php shell script) to your project root (`vendors` should be in same folder as `hyde` binary):
 
 ```bash
 cp vendor/pagerange/md2sql/bin/hyde .

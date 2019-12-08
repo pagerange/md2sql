@@ -9,7 +9,6 @@
         "vlucas/phpdotenv": "^4.0",
         "pagerange/metaparsedown": "^1.0.7"
     },
-    "bin": ["bin/hyde"],
     "require-dev": {
         "phpunit/phpunit": "^8.5"
     },
