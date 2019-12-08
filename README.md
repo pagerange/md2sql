@@ -115,6 +115,6 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ## Contribute
 
-There's not much too this yet.  Just a utility I developed for a personal project.  However, if you feel like working on it, please fork and make pull requests for whatever enahancements you make.
+There's not much to this yet.  Just a utility I developed for a personal project.  However, if you feel like working on it, please fork and make pull requests for whatever enahancements you make.
 
 Thanks!
