@@ -74,7 +74,13 @@ HYDE_DOCPATH=markdown/docs
 HYDE_DOCTABLE=docs
 ```
 
-`HYDE_DOCPATH` is required, or an exception will be thrown
+### Notes on .env options
+
+`DB_CONNECTION` can be `sqlite` or `mysql`
+
+`DB_DATABASE` should be path relative to .env if sqlite, or dbname if mysql
+
+`HYDE_DOCPATH` is required, or an exception will be thrown.  Relative to .env
 
 `HYDE_DOCTABLE` is optional, and will default to `hyde_docs`
 
