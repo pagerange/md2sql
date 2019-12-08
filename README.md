@@ -1,6 +1,7 @@
-# Hyde - Convert yaml to sql data
+# md2sql - Convert yaml to sql data
 
-Hyde will take a folder full of markdown documents and convert them to an SQL table.  The yaml frontmatter is used to populate a number of the fields.  The 
+Md2sql will take a folder full of markdown documents and convert them to an SQL table.  The yaml frontmatter is used to populate a number of the fields.
+
 The table fields are as follows:
 
 ```sql
@@ -18,13 +19,13 @@ status TINYINT NOT NULL DEFAULT 0 -- (public or private)
 Install with composer:
 
 ```bash
-composer require pagerange/hyde
+composer require pagerange/md2sql
 ```
 
 Copy the `hyde` binary (php shell script) to your project root (`vendors` should be in same folder as `hyde` binary):
 
 ```bash
-cp vendor/pagerange/hyde/bin/hyde .
+cp vendor/pagerange/md2sql/bin/hyde .
 ```
 
 Add config options to your .env file:
