@@ -65,12 +65,9 @@ class Hyde
 
     public function createDoctable()
     {
-        try {
-            $this->dbh->beginTransaction();
-            $query = "DROP TABLE IF EXISTS {$this->env['DOCTABLE']}";
-            $stmt = $this->dbh->prepare($query);
-            $stmt->execute();
-            $query =  "CREATE TABLE {$this->env['DOCTABLE']} (
+
+        if($this->dbh->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'sqlite') {
+            $create =  "CREATE TABLE {$this->env['DOCTABLE']} (
                 id INTEGER NOT NULL PRIMARY KEY,
                 file VARCHAR(255),
                 meta TEXT,
@@ -78,11 +75,24 @@ class Hyde
                 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 status TINYINT NOT NULL DEFAULT 0 
             )";
-            $stmt = $this->dbh->prepare($query);
+        } else {
+            $create =  "CREATE TABLE {$this->env['DOCTABLE']} (
+                id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                file VARCHAR(255),
+                meta TEXT,
+                html TEXT,
+                created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                status TINYINT NOT NULL DEFAULT 0 
+            )";
+        }
+
+        try {
+            $drop = "DROP TABLE IF EXISTS {$this->env['DOCTABLE']}";
+            $stmt = $this->dbh->prepare($drop);
             $stmt->execute();
-            $this->dbh->commit();
+            $stmt = $this->dbh->prepare($create);
+            $stmt->execute();
         } catch(\PDOException $e) {
-            $this->dbh->rollback();
             throw new HydeException($e->getMessage());
         }
     }

@@ -46,7 +46,7 @@ class RunHyde
         $db_name = $_ENV['DB_DATABASE'];
         $db_user = $_ENV['DB_USERNAME'] ?? '';
         $db_pass = $_ENV['DB_PASSWORD'] ?? '';
-        $db_post = $_ENV['DB_PORT'] ?? '';
+        $db_port = $_ENV['DB_PORT'] ?? '';
         $db_host = $_ENV['DB_HOST'] ?? '';
         if($db_type == 'sqlite') {
             $db_dsn = "sqlite:$db_name";
