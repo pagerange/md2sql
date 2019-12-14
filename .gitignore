@@ -2,5 +2,6 @@ vendor
 .env
 .phpunit.result.cache
 markdown
+./hyde
 
 
